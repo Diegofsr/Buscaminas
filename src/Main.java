@@ -1,8 +1,5 @@
 import java.util.Random;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -15,7 +12,7 @@ public class Main {
 
         //Declaración de variables
         int tableroSize;
-        String nombre = "";
+        String nombre ;
         int casillasDestapadas = 0;
         int minas;
 
@@ -39,11 +36,9 @@ public class Main {
     //Metodo pedir nombre
     public static String pedirNombre(){
         String nombre;
-        while (true){
-            System.out.println("Cual es tu nombre: ");
-            nombre = sc.nextLine().trim();
-            return validarTexto(nombre);
-        }
+        System.out.println("Cual es tu nombre: ");
+        nombre = sc.nextLine().trim();
+        return validarTexto(nombre);
     }
 
     //Metodo para validar texto
@@ -60,7 +55,7 @@ public class Main {
 
     //Bienvenida al juego
     public static void bienvenida(){
-        System.out.println("Bienvenido");
+        System.out.println("Bienvenido a");
         System.out.println(" _______   __   __  _______  _______    ____    ___   ___  __  ____    __    ____   ________");
         System.out.println("|    _   ||  | |  ||       ||       |  |    |  |   |_|   ||  ||    |  |  |  |    |  |       |");
         System.out.println("|   |_|  ||  | |  ||    ___||    ___| |  ||  | |         ||  ||  ||  ||  | |  ||  | |    ___|");
@@ -73,11 +68,9 @@ public class Main {
     //Metodo para pedir el tamaño del tablero
     public static int pedirTamano(){
         String size;
-        while (true){
-            System.out.println("Ingresa el tamaño del tablero: ");
-            size = sc.nextLine();
-            return validarNumero(size);
-        }
+        System.out.println("Ingresa el tamaño del tablero: ");
+        size = sc.nextLine();
+        return validarNumero(size);
     }
 
     //Metodo para validar numeros
@@ -92,23 +85,6 @@ public class Main {
         }
     }
 
-    //Metodo para poner coordenadas
-    public static void coordenadas(){
-        System.out.print("  ");
-        for (int j = 0; j < tableroVisible.length; j++) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-
-        for (int i = 0; i < tableroVisible.length; i++) {
-            System.out.print(i + " ");
-            for (int j = 0; j < tableroVisible.length; j++) {
-                System.out.print(tableroVisible[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
     //Crear tableros de juego
     public static void inicializarTableros(int tableroSize) {
         tableroLogico = new int[tableroSize][tableroSize];
@@ -116,11 +92,9 @@ public class Main {
         for (int i = 0; i < tableroVisible.length; i++) {
             for (int j = 0; j < tableroVisible[0].length; j++) {
                 tableroVisible[i][j] = 'X';
-                System.out.print(tableroVisible[i][j] + " ");
             }
-            System.out.println();
         }
-        coordenadas();
+        mostrarTablero();
     }
 
     //Calcular minas
@@ -169,8 +143,14 @@ public class Main {
 
     //Mostrar el tablero actualizado
     public static void mostrarTablero(){
+        System.out.print("  ");
+        for (int j = 0; j < tableroVisible.length; j++) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
 
         for (int i = 0; i < tableroVisible.length; i++) {
+            System.out.print(i + " ");
             for (int j = 0; j < tableroVisible.length; j++) {
                 System.out.print(tableroVisible[i][j] + " ");
             }
@@ -184,14 +164,14 @@ public class Main {
         for (int i = 0; i < tableroLogico.length; i++) {
             for (int j = 0; j < tableroLogico.length; j++) {
                 if (tableroLogico[i][j] == -1){
-                    tableroVisible[i][j] = (char) ('X');
+                    tableroVisible[i][j] = 'X';
                 } else {
-                    tableroVisible[i][j] = (char) ('0');
+                    tableroVisible[i][j] = '0';
                 }
-                System.out.print(tableroVisible[i][j] + " ");
             }
-            System.out.println();
         }
+        mostrarTablero();
+
     }
 
     //Metodo de la interaccion con el usuario para jugar
