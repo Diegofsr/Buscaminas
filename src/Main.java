@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     // Variables globales
     static int[][] tableroLogico; // -1 = Mina, 0 = Nada, 1-8 = Cantidad minas
-    static char[][] tableroVisible; // X = Tapado, ' ' = Vacio, 1-8 = Cantidad minas
+    static String[][] tableroVisible; // X = Tapado, '0' = Vacio, 1-8 = Cantidad minas
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -65,6 +65,12 @@ public class Main {
         System.out.println("|_______| |_______||_______||_______||__|  |__||__|   |__||__||__|    |__||__|  |__||_______|");
     }
 
+    //Metodo para guardar puntaje
+    /*public static int puntaje(){
+        int p;
+
+    }*/
+
     //Metodo para pedir el tamaño del tablero
     public static int pedirTamano(){
         String size;
@@ -88,10 +94,10 @@ public class Main {
     //Crear tableros de juego
     public static void inicializarTableros(int tableroSize) {
         tableroLogico = new int[tableroSize][tableroSize];
-        tableroVisible = new char[tableroSize][tableroSize];
+        tableroVisible = new String[tableroSize][tableroSize];
         for (int i = 0; i < tableroVisible.length; i++) {
             for (int j = 0; j < tableroVisible[0].length; j++) {
-                tableroVisible[i][j] = 'X';
+                tableroVisible[i][j] = "#" + "  ";
             }
         }
         mostrarTablero();
@@ -143,16 +149,26 @@ public class Main {
 
     //Mostrar el tablero actualizado
     public static void mostrarTablero(){
-        System.out.print("  ");
+        System.out.print("   ");
         for (int j = 0; j < tableroVisible.length; j++) {
-            System.out.print(j + " ");
+            if (j > 9){
+                System.out.print(j + " ");
+            } else {
+                System.out.print(j + "  ");
+
+            }
         }
         System.out.println();
 
         for (int i = 0; i < tableroVisible.length; i++) {
-            System.out.print(i + " ");
+            if (i < 10){
+                System.out.print(i + "  ");
+            } else {
+                System.out.print(i + " ");
+
+            }
             for (int j = 0; j < tableroVisible.length; j++) {
-                System.out.print(tableroVisible[i][j] + " ");
+                System.out.print(tableroVisible[i][j]);
             }
             System.out.println();
         }
@@ -160,13 +176,13 @@ public class Main {
 
     //Revelar tablero
     public static void revelarTablero(){
-        System.out.println("Posición de las minas (X)");
+        System.out.println("Posición de las minas (■)");
         for (int i = 0; i < tableroLogico.length; i++) {
             for (int j = 0; j < tableroLogico.length; j++) {
                 if (tableroLogico[i][j] == -1){
-                    tableroVisible[i][j] = 'X';
+                    tableroVisible[i][j] = "■  ";
                 } else {
-                    tableroVisible[i][j] = '0';
+                    tableroVisible[i][j] = "□  ";
                 }
             }
         }
@@ -197,8 +213,8 @@ public class Main {
                     System.out.println("|_______||__| |__||_|   |_||_______|         |_______|   |_|   |_______||___|   |__|");
                     juegoActivo = false;
                 } else {
-                    if (tableroVisible[f][c] == 'X'){
-                        tableroVisible[f][c] = (char) (tableroLogico[f][c] + '0');
+                    if (tableroVisible[f][c].equals("#" + "  ")){
+                        tableroVisible[f][c] = tableroLogico[f][c] + "  ";
                         casillasDestapadas++;
                         if (casillasDestapadas == (tableroSize * tableroSize) - minas){
                             System.out.println("¡Haz ganado!");
